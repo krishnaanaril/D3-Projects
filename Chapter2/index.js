@@ -29,16 +29,60 @@ async function lifeExpectancyTable() {
 
 lifeExpectancyTable();
 
-const protoChart = {
-    width: window.innerWidth,
-    height: window.innerHeight,
-    margin: {
-        left: 10,
-        right: 10,
-        top: 10,
-        bottom: 10,
-    },
-};
+function renderSVGStuff() {
+    const chart = chartFactory();
+    const text = chart.container.append('text')
+        .text("Ceci n'est pas un trajet!")
+        .attr('x', window.innerWidth / 2)
+        .attr('y', window.innerHeight / 2)
+        .attr('text-anchor', 'middle');
+
+    chart.container.append('circle')
+        .attr('cx', 350)
+        .attr('cy', 250)
+        .attr('r', 100)
+        .attr('fill', 'green')
+        .attr('fill-opacity', 0.5)
+        .attr('stroke', 'steelblue')
+        .attr('stroke-width', 2);
+
+    const ellipses = chart.container.append('ellipse')
+        .attr('cx', 350)
+        .attr('cy', 250)
+        .attr('rx', 150)
+        .attr('ry', 70)
+        .attr('fill', 'green')
+        .attr('fill-opacity', 0.3)
+        .attr('stroke', 'steelblue')
+        .attr('stroke-width', 0.7);
+
+    chart.container.append('ellipse')
+        .attr('cx', 350)
+        .attr('cy', 250)
+        .attr('rx', 80)
+        .attr('ry', 7);
+
+    const rect = chart.container.insert('rect', 'circle')
+        .attr('x', 200)
+        .attr('y', 50)
+        .attr('width', 300)
+        .attr('height', 400)
+        .attr('transform', 'translate(-200, -50)');
+
+    rect.attr('stroke', 'green')
+        .attr('stroke-width', 0.5)
+        .attr('fill', 'white');
+
+    chart.container.selectAll('ellipse, circle')
+        .attr('transform', `translate(150, 0)
+    scale(1.2)
+    translate(-250, 0)
+    rotate(-45, ${350 / 1.2}, ${250 / 1.2}) skewX(20)`);
+
+}
+
+renderSVGStuff();
+
 // setInterval(()=>{    
 //     console.log('pushing values...');
 //     rows.push(['a', 'b', 'c', 'd', 'e', 'f']);
